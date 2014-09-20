@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Story BOD</title>
+    <link rel="stylesheet" href="./components/codemirror/lib/codemirror.css">
+    <style type="text/css" media="screen">
+        body {
+            background: #efefef;
+        }
+
+        #codemirror {
+            margin: 0 1em;
+        }
+
+        #no-mirror {
+            margin: 0 0.5em;
+            width: 96%;
+            height: 200px;
+        }
+
+        #no-mirror,
+        .CodeMirror {
+            font-family: source-code-pro, Consolas, monaco, monospace;
+            font-size: 18px;
+            font-weight: normal;
+            line-height: 31px;
+            color: rgb(51, 51, 51);
+        }
+    </style>
+</head>
+
+<body>
+<textarea id="codemirror">Hello Text Area using CodeMirror</textarea>
+<textarea id="no-mirror">Hello Text Area using normal script for getSelection()</textarea>
+
+<div id='debug'></div>
+<div>
+    We are using node.js
+    <script>
+        document.write(process.version)
+    </script>
+    and atom-shell
+    <script>
+        document.write(process.versions['atom-shell'])
+    </script>
+    .
+</div>
+<script type="text/javascript" src="./components/codemirror/lib/codemirror.js"></script>
+<script type="text/javascript" charset="utf-8">
+    window.$ = window.jQuery = require('./components/jquery/dist/jquery.min');
+    $(document).ready(function () {
+        var editor = CodeMirror.fromTextArea($('#codemirror')[0], {
+            mode: "text/html"
+        });
+        $(document).on('mouseup keyup', 'textarea', function () {
+            $("#debug").html("You select '" + getSelectionText() + "'");
+        });
+
+        function getSelectionText() {
+            if (window.getSelection) {
+                try {
+                    var ta = $('#no-mirror').get(0);
+                    return ta.value.substring(ta.selectionStart, ta.selectionEnd);
+                } catch (e) {
+                    console.log('Cant get selection text')
+                }
+            }
+            // For IE
+            if (document.selection && document.selection.type != "Control") {
+                return document.selection.createRange().text;
+            }
+        }
+    });
+</script>
+</body>
+
+</html>

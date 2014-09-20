@@ -1,0 +1,20 @@
+{
+  "name": "storibod",
+  "version": "0.0.1",
+  "dependencies": {
+    "jquery": "~2.1.1",
+    "codemirror": "~4.6.0"
+  },
+  "authors": [
+    "soomtong <soomtong@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "components",
+    "test",
+    "tests"
+  ]
+}
